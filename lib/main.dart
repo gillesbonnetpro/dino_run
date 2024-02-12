@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:pakins/command.dart';
 import 'package:pakins/dino_idle.dart';
 import 'package:pakins/dino_walk.dart';
+import 'package:pakins/notifier.dart';
 
 void main() {
   runApp(const MainApp());
@@ -19,7 +20,20 @@ class MainApp extends StatelessWidget {
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: DinoWal(),
+                child: ValueListenableBuilder<DinoAction>(
+                  builder:
+                      (BuildContext context, DinoAction action, Widget? child) {
+                    switch (action) {
+                      case DinoAction.idle:
+                        return DinoIdle();
+                      case DinoAction.walk:
+                        return DinoWalk();
+                      case DinoAction.jump:
+                        return Placeholder();
+                    }
+                  },
+                  valueListenable: actionNotifier,
+                ),
               ),
             ),
             Command()

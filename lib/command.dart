@@ -32,27 +32,28 @@ class _CommandState extends State<Command> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            IconButton(
-              onPressed: () {
+            GestureDetector(
+              onTapDown: (details) {
                 directionNotifier.value = Direction.toLeft;
+                actionNotifier.value = DinoAction.walk;
               },
-              icon: Icon(
+              onTapUp: (details) {
+                actionNotifier.value = DinoAction.idle;
+              },
+              child: Icon(
                 Icons.arrow_circle_left_rounded,
                 color: pointColor,
               ),
             ),
-            IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.arrow_circle_up_rounded,
-                color: pointColor,
-              ),
-            ),
-            IconButton(
-              onPressed: () {
+            GestureDetector(
+              onTapDown: (details) {
                 directionNotifier.value = Direction.toRight;
+                actionNotifier.value = DinoAction.walk;
               },
-              icon: Icon(
+              onTapUp: (details) {
+                actionNotifier.value = DinoAction.idle;
+              },
+              child: Icon(
                 Icons.arrow_circle_right_rounded,
                 color: pointColor,
               ),
