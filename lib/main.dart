@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pakins/background.dart';
 import 'package:pakins/command.dart';
 import 'package:pakins/dino_idle.dart';
 import 'package:pakins/dino_walk.dart';
@@ -18,22 +19,27 @@ class MainApp extends StatelessWidget {
         body: Column(
           children: [
             Expanded(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: ValueListenableBuilder<DinoAction>(
-                  builder:
-                      (BuildContext context, DinoAction action, Widget? child) {
-                    switch (action) {
-                      case DinoAction.idle:
-                        return DinoIdle();
-                      case DinoAction.walk:
-                        return DinoWalk();
-                      case DinoAction.jump:
-                        return Placeholder();
-                    }
-                  },
-                  valueListenable: actionNotifier,
-                ),
+              child: Stack(
+                children: [
+                  const Background(),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: ValueListenableBuilder<DinoAction>(
+                      builder: (BuildContext context, DinoAction action,
+                          Widget? child) {
+                        switch (action) {
+                          case DinoAction.idle:
+                            return DinoIdle();
+                          case DinoAction.walk:
+                            return DinoWalk();
+                          case DinoAction.jump:
+                            return Placeholder();
+                        }
+                      },
+                      valueListenable: actionNotifier,
+                    ),
+                  ),
+                ],
               ),
             ),
             Command()
