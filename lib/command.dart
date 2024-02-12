@@ -35,6 +35,19 @@ class _CommandState extends State<Command> {
             GestureDetector(
               onTapDown: (details) {
                 directionNotifier.value = Direction.toLeft;
+                actionNotifier.value = DinoAction.run;
+              },
+              onTapUp: (details) {
+                actionNotifier.value = DinoAction.idle;
+              },
+              child: Icon(
+                Icons.arrow_circle_left_outlined,
+                color: pointColor,
+              ),
+            ),
+            GestureDetector(
+              onTapDown: (details) {
+                directionNotifier.value = Direction.toLeft;
                 actionNotifier.value = DinoAction.walk;
               },
               onTapUp: (details) {
@@ -55,6 +68,19 @@ class _CommandState extends State<Command> {
               },
               child: Icon(
                 Icons.arrow_circle_right_rounded,
+                color: pointColor,
+              ),
+            ),
+            GestureDetector(
+              onTapDown: (details) {
+                directionNotifier.value = Direction.toRight;
+                actionNotifier.value = DinoAction.run;
+              },
+              onTapUp: (details) {
+                actionNotifier.value = DinoAction.idle;
+              },
+              child: Icon(
+                Icons.arrow_circle_right_outlined,
                 color: pointColor,
               ),
             ),

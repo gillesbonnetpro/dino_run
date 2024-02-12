@@ -8,4 +8,4 @@ final ValueNotifier<DinoAction> actionNotifier =
 
 enum Direction { toLeft, toRight }
 
-enum DinoAction { idle, walk, jump }
+enum DinoAction { idle, walk, run, jump }
