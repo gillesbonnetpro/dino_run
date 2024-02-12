@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pakins/command.dart';
-import 'package:pakins/dino.dart';
+import 'package:pakins/dino_idle.dart';
+import 'package:pakins/dino_walk.dart';
 
 void main() {
   runApp(const MainApp());
@@ -18,7 +19,7 @@ class MainApp extends StatelessWidget {
             Expanded(
               child: Align(
                 alignment: Alignment.bottomCenter,
-                child: DinoIdle(),
+                child: DinoWal(),
               ),
             ),
             Command()
