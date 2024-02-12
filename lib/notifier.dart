@@ -5,4 +5,4 @@ final ValueNotifier<Direction> directionNotifier =
 
 enum Direction { toLeft, toRight }
 
-enum Action { idle, walking }
+enum Action { idle, walk, jump }
