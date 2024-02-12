@@ -27,10 +27,11 @@ class _CommandState extends State<Command> {
     posX = 0;
 
     return Container(
-        height: 50,
-        color: Colors.blue,
+        height: 70,
+        color: Colors.transparent,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             GestureDetector(
               onTapDown: (details) {
@@ -41,6 +42,7 @@ class _CommandState extends State<Command> {
                 actionNotifier.value = DinoAction.idle;
               },
               child: Icon(
+                size: 60,
                 Icons.arrow_circle_left_outlined,
                 color: pointColor,
               ),
@@ -54,6 +56,7 @@ class _CommandState extends State<Command> {
                 actionNotifier.value = DinoAction.idle;
               },
               child: Icon(
+                size: 60,
                 Icons.arrow_circle_left_rounded,
                 color: pointColor,
               ),
@@ -67,6 +70,7 @@ class _CommandState extends State<Command> {
                 actionNotifier.value = DinoAction.idle;
               },
               child: Icon(
+                size: 60,
                 Icons.arrow_circle_right_rounded,
                 color: pointColor,
               ),
@@ -80,6 +84,7 @@ class _CommandState extends State<Command> {
                 actionNotifier.value = DinoAction.idle;
               },
               child: Icon(
+                size: 60,
                 Icons.arrow_circle_right_outlined,
                 color: pointColor,
               ),
