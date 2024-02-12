@@ -21,7 +21,6 @@ class _DinoIdleState extends State<DinoIdle> {
       String idleName = 'assets/dino/Idle_$i.png';
       idle.add(AssetImage(idleName));
     }
-    print('nb frames ${idle.length}');
 
     t = Timer.periodic(const Duration(milliseconds: 50), (timer) {
       setState(() {

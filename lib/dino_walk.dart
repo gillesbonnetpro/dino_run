@@ -21,7 +21,6 @@ class _DinoWalkState extends State<DinoWalk> {
       String walkName = 'assets/dino/Walk_$i.png';
       walk.add(AssetImage(walkName));
     }
-    print('nb frames ${walk.length}');
 
     t = Timer.periodic(const Duration(milliseconds: 50), (timer) {
       setState(() {
