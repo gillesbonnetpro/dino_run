@@ -6,6 +6,8 @@ final ValueNotifier<Direction> directionNotifier =
 final ValueNotifier<DinoAction> actionNotifier =
     ValueNotifier<DinoAction>(DinoAction.idle);
 
+final ValueNotifier<int> velocityNotifier = ValueNotifier<int>(0);
+
 enum Direction { toLeft, toRight }
 
-enum DinoAction { idle, walk, jump }
+enum DinoAction { idle, walk, run, jump }

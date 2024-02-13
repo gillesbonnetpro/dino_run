@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pakins/background.dart';
 import 'package:pakins/dino_idle.dart';
+import 'package:pakins/dino_run.dart';
 import 'package:pakins/dino_walk.dart';
 import 'package:pakins/notifier.dart';
 
@@ -32,6 +33,8 @@ class _GameBoardState extends State<GameBoard> {
                     return DinoWalk();
                   case DinoAction.jump:
                     return Placeholder();
+                  case DinoAction.run:
+                    return DinoRun();
                 }
               },
               valueListenable: actionNotifier,
