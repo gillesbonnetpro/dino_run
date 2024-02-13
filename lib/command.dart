@@ -37,14 +37,17 @@ class _CommandState extends State<Command> {
           velocityNotifier.value =
               (details.globalPosition.dx - savedX).abs().toInt();
 
-          print(
+          /*    print(
               'deltaX : ${details.globalPosition.dx} / saved $savedX / velocity ${velocityNotifier.value}');
-
+ */
           actionNotifier.value = velocityNotifier.value < goFast
               ? DinoAction.walk
               : DinoAction.run;
         }),
-        onPanEnd: (details) {
+        onPanEnd: (details) async {
+          actionNotifier.value = DinoAction.jump;
+          await Future.delayed(const Duration(milliseconds: 500));
+          velocityNotifier.value = 0;
           actionNotifier.value = DinoAction.idle;
         },
         child: SizedBox.expand(child: widget.child));
