@@ -44,7 +44,9 @@ class _CommandState extends State<Command> {
               ? DinoAction.walk
               : DinoAction.run;
         }),
-        onPanEnd: (details) {
+        onPanEnd: (details) async {
+          actionNotifier.value = DinoAction.jump;
+          await Future.delayed(const Duration(milliseconds: 500));
           actionNotifier.value = DinoAction.idle;
         },
         child: SizedBox.expand(child: widget.child));
