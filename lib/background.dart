@@ -34,7 +34,6 @@ class _BackgroundState extends State<Background> {
         posX += factor;
         if (posX > MediaQuery.of(context).size.width) {
           posX = -(MediaQuery.of(context).size.width / 2);
-          print('${MediaQuery.of(context).size.width} / $posX');
         }
       }
 
@@ -44,9 +43,7 @@ class _BackgroundState extends State<Background> {
           posX = MediaQuery.of(context).size.width;
         }
       }
-      setState(() {
-        print('actu nuage $posX $posY');
-      });
+      setState(() {});
     });
 
     super.initState();
@@ -55,20 +52,7 @@ class _BackgroundState extends State<Background> {
   @override
   void didChangeDependencies() {
     posX = MediaQuery.of(context).size.width;
-    //posY = MediaQuery.of(context).size.width * -0.9;
-    print('change');
     super.didChangeDependencies();
-  }
-
-  void setX(DinoAction action) {
-    double mvt = action == DinoAction.walk ? 5 : 10;
-    setState(() {
-      if (directionNotifier.value == Direction.toLeft) {
-        posX = posX + mvt;
-      } else {
-        posX = posX - mvt;
-      }
-    });
   }
 
   @override
@@ -83,7 +67,7 @@ class _BackgroundState extends State<Background> {
         ),
         Positioned(
           right: posX,
-          bottom: -20,
+          bottom: -70,
           child: SizedBox(
             width: MediaQuery.of(context).size.width / 2,
             child: const Image(

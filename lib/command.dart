@@ -2,94 +2,51 @@ import 'package:flutter/material.dart';
 import 'package:pakins/notifier.dart';
 
 class Command extends StatefulWidget {
-  const Command({
-    super.key,
-  });
+  Command({super.key, required this.child});
+
+  Widget child;
 
   @override
   State<Command> createState() => _CommandState();
 }
 
 class _CommandState extends State<Command> {
-  late double posX;
-  late Color pointColor;
-  late bool isMoving;
+  late double savedX;
+  late double goFast;
 
   @override
   void initState() {
-    isMoving = false;
-    pointColor = Colors.amber.shade900;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    posX = 0;
+    goFast = MediaQuery.of(context).size.width / 10;
 
-    return Container(
-        height: 70,
-        color: Colors.transparent,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            GestureDetector(
-              onTapDown: (details) {
-                directionNotifier.value = Direction.toLeft;
-                actionNotifier.value = DinoAction.run;
-              },
-              onTapUp: (details) {
-                actionNotifier.value = DinoAction.idle;
-              },
-              child: Icon(
-                size: 60,
-                Icons.arrow_circle_left_outlined,
-                color: pointColor,
-              ),
-            ),
-            GestureDetector(
-              onTapDown: (details) {
-                directionNotifier.value = Direction.toLeft;
-                actionNotifier.value = DinoAction.walk;
-              },
-              onTapUp: (details) {
-                actionNotifier.value = DinoAction.idle;
-              },
-              child: Icon(
-                size: 60,
-                Icons.arrow_circle_left_rounded,
-                color: pointColor,
-              ),
-            ),
-            GestureDetector(
-              onTapDown: (details) {
-                directionNotifier.value = Direction.toRight;
-                actionNotifier.value = DinoAction.walk;
-              },
-              onTapUp: (details) {
-                actionNotifier.value = DinoAction.idle;
-              },
-              child: Icon(
-                size: 60,
-                Icons.arrow_circle_right_rounded,
-                color: pointColor,
-              ),
-            ),
-            GestureDetector(
-              onTapDown: (details) {
-                directionNotifier.value = Direction.toRight;
-                actionNotifier.value = DinoAction.run;
-              },
-              onTapUp: (details) {
-                actionNotifier.value = DinoAction.idle;
-              },
-              child: Icon(
-                size: 60,
-                Icons.arrow_circle_right_outlined,
-                color: pointColor,
-              ),
-            ),
-          ],
-        ));
+    return GestureDetector(
+        onPanStart: ((details) {
+          setState(() {
+            savedX = details.globalPosition.dx;
+          });
+        }),
+        onPanUpdate: ((details) {
+          directionNotifier.value = details.globalPosition.dx > savedX
+              ? Direction.toRight
+              : Direction.toLeft;
+
+          velocityNotifier.value =
+              (details.globalPosition.dx - savedX).abs().toInt();
+
+          print(
+              'deltaX : ${details.globalPosition.dx} / saved $savedX / velocity ${velocityNotifier.value}');
+
+          actionNotifier.value = velocityNotifier.value < goFast
+              ? DinoAction.walk
+              : DinoAction.run;
+        }),
+        onPanEnd: (details) {
+          actionNotifier.value = DinoAction.idle;
+        },
+        child: SizedBox.expand(child: widget.child));
   }
 }

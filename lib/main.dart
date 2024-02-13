@@ -18,15 +18,10 @@ class MainApp extends StatelessWidget {
       DeviceOrientation.landscapeRight,
     ]);
 
-    return const MaterialApp(
+    return MaterialApp(
       home: Scaffold(
-        body: Column(
-          children: [
-            Expanded(
-              child: GameBoard(),
-            ),
-            Command()
-          ],
+        body: Command(
+          child: GameBoard(),
         ),
       ),
     );
