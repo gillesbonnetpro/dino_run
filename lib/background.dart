@@ -11,14 +11,14 @@ class Background extends StatefulWidget {
 }
 
 class _BackgroundState extends State<Background> {
-  late double posX;
-  late double posY;
+  late double arbreX;
+  late double arbreY;
   late Timer t;
 
   @override
   void initState() {
-    posY = 0;
-    posX = 0;
+    arbreY = 0;
+    arbreX = 0;
 
     t = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       double factor = 0;
@@ -31,16 +31,16 @@ class _BackgroundState extends State<Background> {
       }
 
       if (directionNotifier.value == Direction.toRight) {
-        posX += factor;
-        if (posX > MediaQuery.of(context).size.width) {
-          posX = -(MediaQuery.of(context).size.width / 2);
+        arbreX += factor;
+        if (arbreX > MediaQuery.of(context).size.width) {
+          arbreX = -(MediaQuery.of(context).size.width / 2);
         }
       }
 
       if (directionNotifier.value == Direction.toLeft) {
-        posX -= factor;
-        if (posX < -(MediaQuery.of(context).size.width / 2)) {
-          posX = MediaQuery.of(context).size.width;
+        arbreX -= factor;
+        if (arbreX < -(MediaQuery.of(context).size.width / 2)) {
+          arbreX = MediaQuery.of(context).size.width;
         }
       }
       setState(() {});
@@ -51,7 +51,7 @@ class _BackgroundState extends State<Background> {
 
   @override
   void didChangeDependencies() {
-    posX = MediaQuery.of(context).size.width;
+    arbreX = MediaQuery.of(context).size.width;
     super.didChangeDependencies();
   }
 
@@ -66,13 +66,24 @@ class _BackgroundState extends State<Background> {
           image: AssetImage('assets/panorama.jpg'),
         ),
         Positioned(
-          right: posX,
+          right: arbreX,
           bottom: -70,
           child: SizedBox(
             width: MediaQuery.of(context).size.width / 2,
             child: const Image(
               fit: BoxFit.fitWidth,
               image: AssetImage('assets/arbre.png'),
+            ),
+          ),
+        ),
+        Positioned(
+          right: arbreX,
+          bottom: -70,
+          child: SizedBox(
+            width: MediaQuery.of(context).size.width / 4,
+            child: const Image(
+              fit: BoxFit.fitWidth,
+              image: AssetImage('assets/buisson.png'),
             ),
           ),
         ),
