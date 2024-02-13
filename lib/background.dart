@@ -33,14 +33,14 @@ class _BackgroundState extends State<Background> {
       if (directionNotifier.value == Direction.toRight) {
         posX += factor;
         if (posX > MediaQuery.of(context).size.width) {
-          print('${MediaQuery.of(context).size.width} / posX');
-          posX = MediaQuery.of(context).size.width * -0.1;
+          posX = -(MediaQuery.of(context).size.width / 2);
+          print('${MediaQuery.of(context).size.width} / $posX');
         }
       }
 
       if (directionNotifier.value == Direction.toLeft) {
         posX -= factor;
-        if (posX < MediaQuery.of(context).size.width * -0.7) {
+        if (posX < -(MediaQuery.of(context).size.width / 2)) {
           posX = MediaQuery.of(context).size.width;
         }
       }
@@ -55,7 +55,7 @@ class _BackgroundState extends State<Background> {
   @override
   void didChangeDependencies() {
     posX = MediaQuery.of(context).size.width;
-    posY = MediaQuery.of(context).size.width * -0.9;
+    //posY = MediaQuery.of(context).size.width * -0.9;
     print('change');
     super.didChangeDependencies();
   }
@@ -83,9 +83,9 @@ class _BackgroundState extends State<Background> {
         ),
         Positioned(
           right: posX,
-          bottom: -50,
+          bottom: -20,
           child: SizedBox(
-            width: MediaQuery.of(context).size.height * 0.5,
+            width: MediaQuery.of(context).size.width / 2,
             child: const Image(
               fit: BoxFit.fitWidth,
               image: AssetImage('assets/arbre.png'),
