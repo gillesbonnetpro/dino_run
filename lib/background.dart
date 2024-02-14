@@ -27,13 +27,14 @@ class _BackgroundState extends State<Background> {
 
     t = Timer.periodic(const Duration(milliseconds: 100), (timer) {
       double factor = 0;
-      if (actionNotifier.value == DinoAction.walk) {
+      /*  if (actionNotifier.value == DinoAction.walk) {
         print('marche');
         factor = 8;
       } else if (actionNotifier.value == DinoAction.run) {
         print('court');
         factor = 20;
-      }
+      } */
+      factor = velocityNotifier.value / 2;
 
       if (directionNotifier.value == Direction.toRight) {
         arbreX += factor;
