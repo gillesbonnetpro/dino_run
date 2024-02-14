@@ -12,6 +12,7 @@ class Command extends StatefulWidget {
 
 class _CommandState extends State<Command> {
   late double savedX;
+  late double savedY;
   late double goFast;
 
   @override
@@ -27,9 +28,14 @@ class _CommandState extends State<Command> {
         onPanStart: ((details) {
           setState(() {
             savedX = details.globalPosition.dx;
+            savedY = details.globalPosition.dy;
           });
         }),
         onPanUpdate: ((details) {
+          // ****************************************
+          // Déplacement latéral
+          // ****************************************
+
           // update de la direction si besoin
           if (details.globalPosition.dx > (savedX + 30) &&
               directionNotifier.value == Direction.toLeft) {
@@ -44,10 +50,28 @@ class _CommandState extends State<Command> {
 
           /*    print(
               'deltaX : ${details.globalPosition.dx} / saved $savedX / velocity ${velocityNotifier.value}');
- */
+           */
           actionNotifier.value = velocityNotifier.value < goFast
               ? DinoAction.walk
               : DinoAction.run;
+
+          // ****************************************
+          // Déplacement vertical
+          // ****************************************
+
+          print(
+              'deltaY : ${details.globalPosition.dy} / saved $savedY / ${details.globalPosition.dy < (savedY - 30)}');
+
+          if (details.globalPosition.dy < (savedY - 30) &&
+              actionNotifier.value != DinoAction.jump) {
+            print('JUMP !');
+            actionNotifier.value = DinoAction.jump;
+          }
+
+          /* else if (details.globalPosition.dx < (savedX - 30) &&
+              directionNotifier.value == Direction.toRight) {
+            directionNotifier.value = Direction.toLeft;
+          } */
         }),
         onPanEnd: (details) async {
           // actionNotifier.value = DinoAction.jump;
