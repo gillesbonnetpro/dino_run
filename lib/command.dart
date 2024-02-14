@@ -30,9 +30,14 @@ class _CommandState extends State<Command> {
           });
         }),
         onPanUpdate: ((details) {
-          directionNotifier.value = details.globalPosition.dx > savedX
-              ? Direction.toRight
-              : Direction.toLeft;
+          // update de la direction si besoin
+          if (details.globalPosition.dx > (savedX + 30) &&
+              directionNotifier.value == Direction.toLeft) {
+            directionNotifier.value = Direction.toRight;
+          } else if (details.globalPosition.dx < (savedX - 30) &&
+              directionNotifier.value == Direction.toRight) {
+            directionNotifier.value = Direction.toLeft;
+          }
 
           velocityNotifier.value =
               (details.globalPosition.dx - savedX).abs().toInt();
@@ -45,7 +50,7 @@ class _CommandState extends State<Command> {
               : DinoAction.run;
         }),
         onPanEnd: (details) async {
-          actionNotifier.value = DinoAction.jump;
+          // actionNotifier.value = DinoAction.jump;
           await Future.delayed(const Duration(milliseconds: 500));
           velocityNotifier.value = 0;
           actionNotifier.value = DinoAction.idle;
