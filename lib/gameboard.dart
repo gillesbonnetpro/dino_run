@@ -14,35 +14,42 @@ class GameBoard extends StatefulWidget {
 }
 
 class _GameBoardState extends State<GameBoard> {
+  late double dinoYoffset;
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      fit: StackFit.expand,
-      children: [
-        const Background(),
-        Transform.translate(
-          offset: const Offset(0, 50),
-          child: Align(
-            alignment: Alignment.bottomCenter,
-            child: ValueListenableBuilder<DinoAction>(
-              builder:
-                  (BuildContext context, DinoAction action, Widget? child) {
-                switch (action) {
-                  case DinoAction.idle:
-                    return DinoIdle();
-                  case DinoAction.walk:
-                    return DinoWalk();
-                  case DinoAction.jump:
-                    return DinoJump();
-                  case DinoAction.run:
-                    return DinoRun();
-                }
-              },
-              valueListenable: actionNotifier,
-            ),
+    double height = MediaQuery.of(context).size.height;
+    print('height : $height');
+
+    if (height < 500) {
+      dinoYoffset = (height / 10) + (height / 200);
+    } else {
+      dinoYoffset = 50;
+    }
+
+    return Stack(fit: StackFit.expand, children: [
+      const Background(),
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: Transform.translate(
+          offset: Offset(0, dinoYoffset),
+          child: ValueListenableBuilder<DinoAction>(
+            builder: (BuildContext context, DinoAction action, Widget? child) {
+              switch (action) {
+                case DinoAction.idle:
+                  return DinoIdle();
+                case DinoAction.walk:
+                  return DinoWalk();
+                case DinoAction.jump:
+                  return DinoJump();
+                case DinoAction.run:
+                  return DinoRun();
+              }
+            },
+            valueListenable: actionNotifier,
           ),
         ),
-      ],
-    );
+      )
+    ]);
   }
 }
