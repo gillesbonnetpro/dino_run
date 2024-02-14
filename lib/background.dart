@@ -85,7 +85,7 @@ class _BackgroundState extends State<Background> {
           ),
           Positioned(
             right: arbreX,
-            bottom: -70,
+            bottom: -MediaQuery.of(context).size.width / 20,
             child: SizedBox(
               width: MediaQuery.of(context).size.width / 2,
               child: const Image(
