@@ -19,9 +19,12 @@ class MainApp extends StatelessWidget {
     ]);
 
     return MaterialApp(
-      home: Scaffold(
-        body: Command(
-          child: GameBoard(),
+      debugShowCheckedModeBanner: false,
+      home: SafeArea(
+        child: Scaffold(
+          body: Command(
+            child: const GameBoard(),
+          ),
         ),
       ),
     );
