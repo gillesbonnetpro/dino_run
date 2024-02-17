@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pakins/background.dart';
 import 'package:pakins/dino_idle.dart';
@@ -19,37 +20,41 @@ class _GameBoardState extends State<GameBoard> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
-    print('height : $height');
+    dinoYoffset = (52 / 472) * (height / 2);
 
-    if (height < 500) {
-      dinoYoffset = (height / 10) + (height / 200);
-    } else {
-      dinoYoffset = 50;
+    if (height > 952) {
+      dinoYoffset = 52;
     }
 
-    return Stack(fit: StackFit.expand, children: [
-      const Background(),
-      Align(
+    print('height : $height / offset : $dinoYoffset / diff : ${height - 952}');
+
+    return Stack(
+        fit: StackFit.expand,
         alignment: Alignment.bottomCenter,
-        child: Transform.translate(
-          offset: Offset(0, dinoYoffset),
-          child: ValueListenableBuilder<DinoAction>(
-            builder: (BuildContext context, DinoAction action, Widget? child) {
-              switch (action) {
-                case DinoAction.idle:
-                  return DinoIdle();
-                case DinoAction.walk:
-                  return DinoWalk();
-                case DinoAction.jump:
-                  return DinoJump();
-                case DinoAction.run:
-                  return DinoRun();
-              }
-            },
-            valueListenable: actionNotifier,
-          ),
-        ),
-      )
-    ]);
+        children: [
+          const Background(),
+          Positioned(
+            bottom: -dinoYoffset,
+            child: Container(
+              constraints: BoxConstraints(maxHeight: height / 2),
+              child: ValueListenableBuilder<DinoAction>(
+                builder:
+                    (BuildContext context, DinoAction action, Widget? child) {
+                  switch (action) {
+                    case DinoAction.idle:
+                      return DinoIdle();
+                    case DinoAction.walk:
+                      return DinoWalk();
+                    case DinoAction.jump:
+                      return DinoJump();
+                    case DinoAction.run:
+                      return DinoRun();
+                  }
+                },
+                valueListenable: actionNotifier,
+              ),
+            ),
+          )
+        ]);
   }
 }

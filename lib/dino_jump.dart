@@ -37,7 +37,11 @@ class _DinoJumpState extends State<DinoJump> {
         if (jumpHeight < 0) {
           jumpHeight = 0;
         } else {
-          jumpHeight *= MediaQuery.of(context).size.height / 2;
+          jumpHeight *= MediaQuery.of(context).size.height / 1.5;
+          /* jumpHeight *= velocityNotifier.value / 250;
+          if (jumpHeight > MediaQuery.of(context).size.height) {
+            jumpHeight = MediaQuery.of(context).size.height * 0.1;
+          } */
         }
       });
     });
@@ -55,7 +59,7 @@ class _DinoJumpState extends State<DinoJump> {
   Widget build(BuildContext context) {
     print('jump $jumpHeight');
     return Transform.translate(
-      offset: Offset(0, -jumpHeight),
+      offset: Offset(0, -(jumpHeight)),
       child: Transform(
         alignment: Alignment.center,
         transform: Matrix4.rotationY(
