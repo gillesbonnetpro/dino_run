@@ -50,6 +50,14 @@ class _DinoJumpState extends State<DinoJump> {
   }
 
   @override
+  void didChangeDependencies() {
+    walk.forEach((image) {
+      precacheImage(image, context);
+    });
+    super.didChangeDependencies();
+  }
+
+  @override
   void dispose() {
     t.cancel();
     super.dispose();
