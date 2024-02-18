@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:pakins/notifier.dart';
+import 'package:pakins/start.dart';
 
 class DinoJump extends StatefulWidget {
   DinoJump({super.key});
@@ -11,7 +12,7 @@ class DinoJump extends StatefulWidget {
 }
 
 class _DinoJumpState extends State<DinoJump> {
-  List<AssetImage> walk = [];
+  List<Image> walk = jumpArray;
   late Timer t;
   int frame = 0;
   double jumpHeight = 0;
@@ -19,11 +20,12 @@ class _DinoJumpState extends State<DinoJump> {
 
   @override
   void initState() {
+    /*
     for (var i = 1; i < 13; i++) {
       String walkName = 'assets/dino/Jump_$i.png';
       walk.add(AssetImage(walkName));
     }
-
+*/
     t = Timer.periodic(const Duration(milliseconds: 30), (timer) {
       savedTime += 0.03;
 
@@ -51,9 +53,11 @@ class _DinoJumpState extends State<DinoJump> {
 
   @override
   void didChangeDependencies() {
+    /*
     walk.forEach((image) {
       precacheImage(image, context);
     });
+    */
     super.didChangeDependencies();
   }
 
@@ -69,13 +73,16 @@ class _DinoJumpState extends State<DinoJump> {
     return Transform.translate(
       offset: Offset(0, -(jumpHeight)),
       child: Transform(
-        alignment: Alignment.center,
-        transform: Matrix4.rotationY(
-            directionNotifier.value == Direction.toLeft ? math.pi : 0),
-        child: Image(
+          alignment: Alignment.center,
+          transform: Matrix4.rotationY(
+              directionNotifier.value == Direction.toLeft ? math.pi : 0),
+          child: walk[frame]
+          /*
+        Image(
           image: walk[frame],
         ),
-      ),
+        */
+          ),
     );
   }
 }

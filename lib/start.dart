@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 
-final jumpArray = [];
+final jumpArray = <Image>[];
 
-Future<void> loadImages(BuildContext context) async {
+Future<bool> loadImages(BuildContext context) async {
   final assetBundle = DefaultAssetBundle.of(context);
 
   for (var i = 1; i < 13; i++) {
     String imageName = 'assets/dino/Jump_$i.png';
-    var image = await assetBundle.load(imageName);
+    var dataByte = await assetBundle.load(imageName);
+    Image image = Image.memory(dataByte.buffer.asUint8List());
     jumpArray.add(image);
   }
 
-  return Future.value(null);
+  return Future.value(true);
 }
