@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:pakins/background.dart';
 import 'package:pakins/dino_idle.dart';
